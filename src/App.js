@@ -1,13 +1,9 @@
-import React from "react";
-import Calculator from "./Calculator";
+import { render, screen } from '@testing-library/react';
+import App from './App';
 
-function App() {
-  return (
-    <div>
-      <h1 style={{ textAlign: "center" }}>React Calculator</h1>
-      <Calculator />
-    </div>
-  );
-}
+test('renders React Calculator heading', () => {
+  render(<App />);
+  const headingElement = screen.getByText(/react calculator/i);
+  expect(headingElement).toBeInTheDocument();
+});
 
-export default App;
