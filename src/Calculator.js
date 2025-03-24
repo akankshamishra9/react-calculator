@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { evaluate } from "mathjs"; // ✅ Replacing eval with evaluate from mathjs
 import "./App.css"; // Importing styles
 
 const Calculator = () => {
@@ -18,14 +19,20 @@ const Calculator = () => {
 
   const calculateResult = () => {
     try {
-      setInput(eval(input).toString());
+      const result = evaluate(input); // ✅ Safe alternative to eval
+      setInput(result.toString());
     } catch (error) {
       setInput("Error");
     }
   };
 
   const squareNumber = () => {
-    setInput((parseFloat(input) ** 2).toString());
+    try {
+      const squared = evaluate(`${input}^2`); // ✅ Squaring using mathjs
+      setInput(squared.toString());
+    } catch (error) {
+      setInput("Error");
+    }
   };
 
   return (
